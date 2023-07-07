@@ -3,6 +3,16 @@ from __future__ import annotations
 from pydantic import BaseModel
 
 
+def get_skills_to_append(
+    *, target_level: int, current_level: int, skill_map: dict[int, Ability]
+) -> list[Ability]:
+    return [
+        value
+        for [key, value] in skill_map.items()
+        if target_level >= key > current_level
+    ]
+
+
 class Stat(BaseModel):
     name: str
     amount: int

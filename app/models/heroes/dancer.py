@@ -1,4 +1,4 @@
-from app.models.base_hero import BaseHero, Ability
+from app.models.base_hero import BaseHero, Ability, get_skills_to_append
 
 
 class Dancer(BaseHero):
@@ -16,13 +16,15 @@ class Dancer(BaseHero):
         skill_map = {
             10: Ability(
                 name="Cascade", base_damage=10, cooldown=2, damage_coefficient=0.5
-            )
+            ),
+            20: Ability(
+                name="Fountain", base_damage=12, cooldown=2, damage_coefficient=0.5
+            ),
         }
-        skills_to_append = [
-            value
-            for [key, value] in skill_map.items()
-            if target_level >= key > self.level
-        ]
+
+        skills_to_append = get_skills_to_append(
+            target_level=target_level, current_level=self.level, skill_map=skill_map
+        )
 
         for skill in skills_to_append:
             self.attacks.append(skill)
