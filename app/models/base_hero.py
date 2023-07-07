@@ -1,8 +1,7 @@
-from __future__ import annotations
-
 from pydantic import BaseModel
 
 from app.models.abilities.ability import Ability
+from app.models.base_character import BaseCharacter
 
 
 def get_skills_to_append(
@@ -20,12 +19,7 @@ class Stat(BaseModel):
     amount: int
 
 
-class BaseHero(BaseModel):
-    name: str
-    level: int
-    experience: int = 0
-    max_health: int
-    max_mana: int
+class BaseHero(BaseCharacter):
     # XXX eventually we'll get rid of this stats field
     # and derive stats based on gear
     stats: list[Stat] = []
