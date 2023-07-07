@@ -18,7 +18,7 @@ class Ability(BaseModel):
 
     @classmethod
     def make_standard_attack(cls, *, base_damage: int) -> "Ability":
-        return cls(name="Attack", base_damage=base_damage, damage_coefficient=0.5)
+        return cls(name="Attack", base_damage=base_damage, damage_coefficient=0.25)
 
 
 class BaseHero(BaseModel):
@@ -33,5 +33,9 @@ class BaseHero(BaseModel):
 
     @classmethod
     def create_new(cls) -> "BaseHero":
+        """Should be overwritten in sub-classes"""
+        raise NotImplementedError
+
+    def upgrade_to_level(self, level: int) -> None:
         """Should be overwritten in sub-classes"""
         raise NotImplementedError
