@@ -20,6 +20,13 @@ class Dancer(BaseHero):
             20: Ability(
                 name="Fountain", base_damage=12, cooldown=2, damage_coefficient=0.5
             ),
+            30: Ability(
+                name="Windmill",
+                base_damage=4,
+                cooldown=2,
+                damage_coefficient=0.5,
+                targets=4,
+            ),
         }
 
         skills_to_append = get_skills_to_append(

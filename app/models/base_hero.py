@@ -25,6 +25,7 @@ class Ability(BaseModel):
     cooldown: float = 0
     base_damage: int
     damage_coefficient: float
+    targets: int = 1
 
     @classmethod
     def make_standard_attack(cls, *, base_damage: int) -> "Ability":
