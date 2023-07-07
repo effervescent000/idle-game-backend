@@ -1,4 +1,5 @@
-from app.models.base_hero import BaseHero, Ability, get_skills_to_append
+from app.models.abilities.ability import Ability
+from app.models.base_hero import BaseHero, get_skills_to_append
 
 
 class Dancer(BaseHero):

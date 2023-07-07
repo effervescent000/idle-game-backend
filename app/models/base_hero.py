@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 
+from app.models.abilities.ability import Ability
+
 
 def get_skills_to_append(
     *, target_level: int, current_level: int, skill_map: dict[int, Ability]
@@ -18,23 +20,10 @@ class Stat(BaseModel):
     amount: int
 
 
-class Ability(BaseModel):
-    name: str
-    rank: int = 1
-    execution_time: float = 0
-    cooldown: float = 0
-    base_damage: int
-    damage_coefficient: float
-    targets: int = 1
-
-    @classmethod
-    def make_standard_attack(cls, *, base_damage: int) -> "Ability":
-        return cls(name="Attack", base_damage=base_damage, damage_coefficient=0.25)
-
-
 class BaseHero(BaseModel):
     name: str
     level: int
+    experience: int = 0
     max_health: int
     max_mana: int
     # XXX eventually we'll get rid of this stats field
