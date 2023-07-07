@@ -1,8 +1,15 @@
-from typing import Union, Optional, Any, Sequence
+from typing import Union, Optional, Sequence
 
 from pydantic import BaseModel
 
-from app.models import BaseEnemy, BaseHero, Ability
+from app.models.abilities.ability import Ability
+from app.models.base_hero import BaseHero
+from app.models.base_enemy import BaseEnemy
+
+
+class LogError(BaseModel):
+    round_num: int
+    message: str
 
 
 class LogEvent(BaseModel):
@@ -17,7 +24,7 @@ class LogEvent(BaseModel):
 class CombatLog(BaseModel):
     log: list[LogEvent] = []
     rounds: int = 1
-    errors: list[dict[str, Any]] = []
+    errors: list[LogError] = []
     heroes: Sequence[BaseHero]
     enemies: Sequence[BaseEnemy]
 
@@ -30,3 +37,6 @@ class CombatLog(BaseModel):
         return any(
             [x.cur_health is not None and x.cur_health > 0 for x in self.enemies]
         )
+
+    def add_error(self, message: str) -> None:
+        self.errors.append(LogError(round_num=self.rounds, message=message))

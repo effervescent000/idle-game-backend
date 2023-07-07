@@ -10,7 +10,7 @@ class Dancer(BaseHero):
             level=1,
             max_health=10,
             max_mana=10,
-            attacks=[Ability.make_standard_attack(base_damage=5)],
+            abilities=[Ability.make_standard_attack(base_damage=5)],
         )
 
     def upgrade_to_level(self, target_level: int) -> None:
@@ -35,4 +35,4 @@ class Dancer(BaseHero):
         )
 
         for skill in skills_to_append:
-            self.attacks.append(skill)
+            self.abilities.append(skill)
