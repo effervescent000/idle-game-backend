@@ -1,3 +1,7 @@
+from typing import Mapping
+
+from app.utils.utils import wrapData
+
 from app.models.base_hero import BaseHero
 
 

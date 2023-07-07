@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Mapping
+
 from pydantic import BaseModel
 
 
@@ -10,6 +12,6 @@ class BaseHero(BaseModel):
     max_mana: int
 
     @classmethod
-    def create_new(cls) -> BaseHero:
+    def create_new(cls) -> "BaseHero":
         """Should be overwritten in sub-classes"""
         raise NotImplementedError
