@@ -1,0 +1,10 @@
+[tool.mypy]
+warn_return_any = true
+disallow_untyped_defs = true
+
+
+
+files = [
+  "app/models",
+  "app/routers"
+]
