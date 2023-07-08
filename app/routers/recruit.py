@@ -2,7 +2,7 @@ from typing import Sequence
 
 from fastapi import APIRouter
 
-from app.models.base_hero import BaseHero
+from app.models.base_characters import BaseHero
 from app.models.heroes.dancer import Dancer
 
 from app.utils.utils import wrapData

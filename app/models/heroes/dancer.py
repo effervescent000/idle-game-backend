@@ -1,5 +1,11 @@
-from app.models.abilities.ability import Ability
-from app.models.base_hero import BaseHero, get_skills_to_append
+from typing import Sequence
+
+from app.models.base_characters import (
+    Ability,
+    BaseHero,
+    BaseEnemy,
+    get_skills_to_append,
+)
 
 
 class Dancer(BaseHero):
@@ -36,3 +42,6 @@ class Dancer(BaseHero):
 
         for skill in skills_to_append:
             self.abilities.append(skill)
+
+    def action(self, targets: Sequence[BaseEnemy]) -> Ability:
+        ...
