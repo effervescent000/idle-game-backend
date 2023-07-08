@@ -33,9 +33,25 @@ class BaseCharacter(BaseModel):
         self.cur_health = self.max_health
         self.cur_mana = self.max_mana
 
-    def action(self) -> Ability:
+    def action(
+        self, *, targets: Sequence["BaseEnemy"], selected_ability: Ability
+    ) -> "Action":
         """Should be overwritten in sub-classes"""
         raise NotImplementedError
+
+    def apply_damage(self, amount: float) -> None:
+        self.cur_health = (
+            self.cur_health - amount
+            if self.cur_health is not None
+            else self.max_health - amount
+        )
+
+    def can_act(self) -> bool:
+        """For now just checks HP but will eventually look for things like stuns
+        and multi-turn moves in progress."""
+        if self.cur_health is not None and self.cur_health > 0:
+            return True
+        return False
 
 
 def get_skills_to_append(
@@ -73,3 +89,12 @@ class BaseHero(BaseCharacter):
 
 class BaseEnemy(BaseCharacter):
     abilities: list[Ability]
+
+
+class Action(BaseModel):
+    ability: Ability
+    actor: BaseCharacter
+    targets: Sequence[BaseCharacter]
+    damage: Optional[float] = None
+    # TODO the next line will deal with buffs/debuffs
+    # effects: Optional[list[Effects]]

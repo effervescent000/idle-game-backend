@@ -2,9 +2,7 @@ from typing import Union, Optional, Sequence
 
 from pydantic import BaseModel
 
-from app.models.abilities.ability import Ability
-from app.models.base_hero import BaseHero
-from app.models.base_enemy import BaseEnemy
+from app.models.base import Ability, BaseCharacter, BaseEnemy, BaseHero, Action
 
 
 class LogError(BaseModel):
@@ -14,11 +12,11 @@ class LogError(BaseModel):
 
 class LogEvent(BaseModel):
     actor: Union[BaseEnemy, BaseHero]
-    targets: Optional[Union[BaseEnemy, BaseHero]]
+    targets: Optional[Sequence[BaseCharacter]]
     ability: Ability
     round_num: int
-    # `damage_amount` is negative for healing
-    damage_amount: int
+    # `damage` is negative for healing
+    damage: Optional[float] = None
 
 
 class CombatLog(BaseModel):
@@ -40,3 +38,14 @@ class CombatLog(BaseModel):
 
     def add_error(self, message: str) -> None:
         self.errors.append(LogError(round_num=self.rounds, message=message))
+
+    def add_event(self, action: Action) -> None:
+        self.log.append(
+            LogEvent(
+                round_num=self.rounds,
+                actor=action.actor,
+                targets=action.targets,
+                damage=action.damage,
+                ability=action.ability,
+            )
+        )

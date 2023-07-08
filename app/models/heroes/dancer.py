@@ -1,7 +1,8 @@
 from typing import Sequence
 
-from app.models.base_characters import (
+from app.models.base import (
     Ability,
+    Action,
     BaseHero,
     BaseEnemy,
     get_skills_to_append,
@@ -43,5 +44,11 @@ class Dancer(BaseHero):
         for skill in skills_to_append:
             self.abilities.append(skill)
 
-    def action(self, targets: Sequence[BaseEnemy]) -> Ability:
-        ...
+    def action(
+        self, *, targets: Sequence[BaseEnemy], selected_ability: Ability
+    ) -> Action:
+        dmg = selected_ability.calc_damage(targets=targets)
+        result = Action(
+            ability=selected_ability, actor=self, targets=targets, damage=dmg
+        )
+        return result
