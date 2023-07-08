@@ -1,5 +1,4 @@
-from app.models.abilities.ability import Ability
-from app.models.base_enemy import BaseEnemy
+from app.models.base import BaseEnemy, Ability
 
 
 class Mook(BaseEnemy):

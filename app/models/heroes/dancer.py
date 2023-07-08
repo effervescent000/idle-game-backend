@@ -1,5 +1,12 @@
-from app.models.abilities.ability import Ability
-from app.models.base_hero import BaseHero, get_skills_to_append
+from typing import Sequence
+
+from app.models.base import (
+    Ability,
+    Action,
+    BaseHero,
+    BaseEnemy,
+    get_skills_to_append,
+)
 
 
 class Dancer(BaseHero):
@@ -10,7 +17,7 @@ class Dancer(BaseHero):
             level=1,
             max_health=10,
             max_mana=10,
-            attacks=[Ability.make_standard_attack(base_damage=5)],
+            abilities=[Ability.make_standard_attack(base_damage=5)],
         )
 
     def upgrade_to_level(self, target_level: int) -> None:
@@ -35,4 +42,13 @@ class Dancer(BaseHero):
         )
 
         for skill in skills_to_append:
-            self.attacks.append(skill)
+            self.abilities.append(skill)
+
+    def action(
+        self, *, targets: Sequence[BaseEnemy], selected_ability: Ability
+    ) -> Action:
+        dmg = selected_ability.calc_damage(targets=targets)
+        result = Action(
+            ability=selected_ability, actor=self, targets=targets, damage=dmg
+        )
+        return result
