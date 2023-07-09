@@ -2,6 +2,14 @@ from typing import Sequence
 
 from app.models.combat.log import CombatLog
 from app.models.base import BaseHero, BaseEnemy, Action
+from app.models.enemies.mook import Mook
+
+
+def generate_enemies() -> Sequence[BaseEnemy]:
+    # TODO this should eventually take params to let you override
+    # what it generates
+    enemies = [Mook.create_new()]
+    return enemies
 
 
 def apply_action(action: Action) -> None:
