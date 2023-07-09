@@ -18,6 +18,7 @@ class Dancer(BaseHero):
             max_health=10,
             max_mana=10,
             abilities=[Ability.make_standard_attack(base_damage=5)],
+            hero_class="dancer",
         )
 
     def upgrade_to_level(self, target_level: int) -> None:

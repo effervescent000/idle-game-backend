@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Literal, Optional, Sequence
 
 from pydantic import BaseModel
 
@@ -74,6 +74,7 @@ class BaseHero(BaseCharacter):
     # and derive stats based on gear
     stats: list[Stat] = []
     abilities: list[Ability] = []
+    hero_class: Literal["dancer"]
 
     @classmethod
     def create_new(cls) -> "BaseHero":
