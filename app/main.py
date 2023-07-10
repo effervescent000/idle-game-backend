@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 
+
 from .routers import recruit, combat
+
 
 app = FastAPI()
 
